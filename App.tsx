@@ -314,7 +314,8 @@ const AuditForm = () => {
       const formData = new FormData();
       formData.append('domain', domain);
       formData.append('email', email);
-      formData.append('source', 'SEO Audit Tool - Israel');
+      formData.append('_subject', `New SEO Audit Request: ${domain}`);
+      formData.append('source', 'SEO Company Israel Website');
 
       const formspreeResponse = await fetch('https://formspree.io/f/mpwvyzbr', {
         method: 'POST',
@@ -327,16 +328,15 @@ const AuditForm = () => {
       if (formspreeResponse.ok) {
         setFormStatus('success');
       } else {
-        setFormStatus('error');
+        throw new Error('Formspree submission failed');
       }
 
-      // 2. Generate SEO Strategy via Gemini
+      // 2. Generate SEO Strategy via Gemini (Background processing for the user)
       const result = await generateSEOStrategy(domain);
       setStrategy(result);
     } catch (err) {
       console.error('Submission error:', err);
       setFormStatus('error');
-      setStrategy("We couldn't generate an automated audit at this moment, but your request has been logged for a manual review.");
     } finally {
       setLoading(false);
     }
@@ -354,12 +354,12 @@ const AuditForm = () => {
               Senior Manual Review Included
             </div>
             {formStatus === 'error' && (
-              <p className="mt-4 text-xs font-bold text-red-400 uppercase tracking-widest">Error sending request. Please try again or call 053-848-4641.</p>
+              <p className="mt-4 text-xs font-bold text-red-400 uppercase tracking-widest animate-pulse">There was an error. Please call 053-848-4641 directly.</p>
             )}
           </div>
           
           <div className="bg-white/5 backdrop-blur-xl p-8 rounded-[32px] border border-white/10">
-            {!strategy ? (
+            {formStatus !== 'success' ? (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Website URL</label>
@@ -393,31 +393,48 @@ const AuditForm = () => {
                   {loading ? (
                     <>
                       <span className="material-symbols-outlined animate-spin text-sm">sync</span>
-                      Analyzing & Sending...
+                      Sending Request...
                     </>
                   ) : 'Get My Free Audit'}
                 </button>
               </form>
             ) : (
               <div className="animate-in fade-in zoom-in duration-500">
-                <div className="flex items-center gap-2 text-primary font-black uppercase text-[10px] tracking-widest mb-4">
-                  <span className="material-symbols-outlined text-sm">auto_awesome</span>
-                  Preliminary AI Audit
-                </div>
-                <div className="text-gray-300 text-sm leading-relaxed whitespace-pre-line font-medium italic border-l-2 border-primary/30 pl-4 py-2">
-                  {strategy}
-                </div>
-                <div className="mt-8 pt-8 border-t border-white/10 text-center flex flex-col gap-4">
-                  <p className="text-xs text-gray-500 font-bold uppercase">Ready for a deep dive?</p>
-                  <a href="https://calendly.com/zack-tokar/consultation?month=2025-04" target="_blank" rel="noopener noreferrer" className="text-white bg-primary px-6 py-4 rounded-xl font-black text-[11px] uppercase tracking-widest hover:bg-blue-600 transition-all">
-                    Book Your Strategy Session
-                  </a>
-                  <button 
-                    onClick={() => setStrategy(null)}
-                    className="text-[9px] font-bold text-gray-600 uppercase tracking-widest hover:text-white transition-colors"
-                  >
-                    Run Another Audit
-                  </button>
+                <div className="flex flex-col items-center text-center py-8">
+                   <div className="w-16 h-16 bg-primary/20 text-primary rounded-full flex items-center justify-center mb-6">
+                      <span className="material-symbols-outlined text-3xl">check_circle</span>
+                   </div>
+                   <h3 className="text-2xl font-black mb-3">Request Received.</h3>
+                   <p className="text-gray-400 text-sm font-medium mb-8">Zechariah will personally review your site and reach out within 24 hours.</p>
+                   
+                   {strategy ? (
+                     <div className="text-left w-full">
+                        <div className="flex items-center gap-2 text-primary font-black uppercase text-[10px] tracking-widest mb-4">
+                          <span className="material-symbols-outlined text-sm">auto_awesome</span>
+                          Preliminary AI Insights
+                        </div>
+                        <div className="text-gray-300 text-sm leading-relaxed whitespace-pre-line font-medium italic border-l-2 border-primary/30 pl-4 py-2 bg-white/5 rounded-r-lg">
+                          {strategy}
+                        </div>
+                     </div>
+                   ) : (
+                     <div className="flex items-center gap-3 text-gray-500 text-xs font-bold uppercase tracking-widest">
+                        <span className="material-symbols-outlined animate-spin text-xs">sync</span>
+                        Generating AI Insights...
+                     </div>
+                   )}
+
+                   <div className="mt-10 pt-8 border-t border-white/10 w-full flex flex-col gap-4">
+                      <a href="https://calendly.com/zack-tokar/consultation?month=2025-04" target="_blank" rel="noopener noreferrer" className="text-white bg-primary px-6 py-4 rounded-xl font-black text-[11px] uppercase tracking-widest hover:bg-blue-600 transition-all text-center">
+                        Skip the Queue - Book a Call
+                      </a>
+                      <button 
+                        onClick={() => {setFormStatus('idle'); setStrategy(null);}}
+                        className="text-[9px] font-bold text-gray-600 uppercase tracking-widest hover:text-white transition-colors"
+                      >
+                        Submit Another Site
+                      </button>
+                   </div>
                 </div>
               </div>
             )}
@@ -447,7 +464,7 @@ const Footer = () => (
         <div>
           <h4 className="font-black uppercase text-[10px] tracking-[0.2em] text-primary mb-6">Contact Us</h4>
           <div className="space-y-4">
-            <p className="text-sm font-medium text-gray-300">zechariah@israelseofreelancer.com</p>
+            <p className="text-sm font-medium text-gray-300 break-words">zechariah@israelseofreelancer.com</p>
             <a href="tel:0538484641" className="text-gray-200 text-base font-black block hover:text-primary transition-colors">053-848-4641</a>
             <a href="https://calendly.com/zack-tokar/consultation?month=2025-04" target="_blank" className="text-primary text-[10px] font-black uppercase tracking-widest hover:text-white transition-all underline decoration-2 underline-offset-4">Book Consultation</a>
           </div>
@@ -473,9 +490,9 @@ const Footer = () => (
         </div>
       </div>
       
-      <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em]">© 2024 SEO Company Israel. All rights reserved.</p>
-        <p className="text-[9px] font-bold text-gray-700 uppercase tracking-widest italic">Engineered for Performance.</p>
+      <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+        <p className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] text-center md:text-left">© 2024 SEO Company Israel. All rights reserved.</p>
+        <p className="text-[9px] font-bold text-gray-700 uppercase tracking-widest italic">Engineered for Performance by Zechariah Tokar.</p>
       </div>
     </div>
   </footer>
