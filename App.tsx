@@ -29,13 +29,12 @@ const Header = ({ onNavigate, currentPage }: { onNavigate: (page: string) => voi
           </div>
         </button>
         
-        <div className="hidden md:flex items-center lg:gap-6 md:gap-3 text-xs font-bold uppercase tracking-widest text-navy">
+        <div className="hidden md:flex items-center lg:gap-4 md:gap-2 text-[10px] font-bold uppercase tracking-widest text-navy">
           <button onClick={() => handleNavClick('services')} className="hover:text-primary transition-colors px-2">Services</button>
-          <button onClick={() => handleNavClick('testimonials')} className="hover:text-primary transition-colors px-2">Results</button>
           
           <button 
             onClick={() => onNavigate('b2b')} 
-            className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 border ${
+            className={`px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1 border ${
               currentPage === 'b2b' 
               ? 'text-primary bg-primary/10 border-primary/30 ring-1 ring-primary/20 shadow-sm' 
               : 'text-primary bg-primary/5 border-primary/10 hover:bg-primary/10'
@@ -47,14 +46,26 @@ const Header = ({ onNavigate, currentPage }: { onNavigate: (page: string) => voi
 
           <button 
             onClick={() => onNavigate('reddit')} 
-            className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 border ${
+            className={`px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1 border ${
               currentPage === 'reddit' 
               ? 'text-white bg-[#FF4500] border-[#FF4500] shadow-md shadow-[#FF4500]/20' 
               : 'text-[#FF4500] bg-[#FF4500]/5 border-[#FF4500]/10 hover:bg-[#FF4500]/10'
             }`}
           >
-            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.966 0 1.75.784 1.75 1.75 0 .966-.784 1.75-1.75 1.75-.19 0-.375-.041-.539-.105-.114 1.619-1.142 3.06-2.674 4.14-.3.21-.62.39-.95.54a7.35 7.35 0 0 1-3.13.68c-.96 0-1.89-.15-2.73-.42a6.9 6.9 0 0 1-1.35-.61c-1.532-1.08-2.56-2.521-2.674-4.14-.164.064-.349.105-.539.105-.966 0-1.75-.784-1.75-1.75 0-.966.784-1.75 1.75-1.75.477 0 .899.182 1.207.491 1.154-.825 2.724-1.371 4.453-1.469l.754-3.528c.01-.05.03-.1.06-.14.04-.04.09-.07.15-.08l2.96-.61c.14-.04.28.05.32.19zm-3.834 10.155c-.5 0-.91.41-.91.91s.41.91.91.91.91-.41.91-.91-.41-.91-.91-.91zm-4.352 0c-.5 0-.91.41-.91.91s.41.91.91.91.91-.41.91-.91-.41-.91-.91-.91zm5.344 2.115c-.17.17-.44.17-.61 0-.6-.6-1.55-.89-2.56-.89-1.01 0-1.96.29-2.56.89-.17.17-.44.17-.61 0-.17-.17-.17-.44 0-.61.74-.74 1.86-1.1 3.17-1.1 1.31 0 2.43.36 3.17 1.1.17.17.17.44 0 .61z"/></svg>
+            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.966 0 1.75.784 1.75 1.75 0 .966-.784 1.75-1.75 1.75-.19 0-.375-.041-.539-.105-.114 1.619-1.142 3.06-2.674 4.14-.3.21-.62.39-.95.54a7.35 7.35 0 0 1-3.13.68c-.96 0-1.89-.15-2.73-.42a6.9 6.9 0 0 1-1.35-.61c-1.532-1.08-2.56-2.521-2.674-4.14-.164.064-.349.105-.539.105-.966 0-1.75-.784-1.75-1.75 0-.966.784-1.75 1.75-1.75.477 0 .899.182 1.207.491 1.154-.825 2.724-1.371 4.453-1.469l.754-3.528c.01-.05.03-.1.06-.14.04-.04.09-.07.15-.08l2.96-.61c.14-.04.28.05.32.19zm-3.834 10.155c-.5 0-.91.41-.91.91s.41.91.91.91.91-.41.91-.91-.41-.91-.91-.91zm-4.352 0c-.5 0-.91.41-.91.91s.41.91.91.91.91-.41.91-.91-.41-.91-.91-.91zm5.344 2.115c-.17.17-.44.17-.61 0-.6-.6-1.55-.89-2.56-.89-1.01 0-1.96.29-2.56.89-.17.17-.44.17-.61 0-.17-.17-.17-.44 0-.61.74-.74 1.86-1.1 3.17-1.1 1.31 0 2.43.36 3.17 1.1.17.17.17.44 0 .61z"/></svg>
             Reddit
+          </button>
+
+          <button 
+            onClick={() => onNavigate('ai-seo')} 
+            className={`px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1 border ${
+              currentPage === 'ai-seo' 
+              ? 'text-[#8B5CF6] bg-[#8B5CF6]/10 border-[#8B5CF6]/30 ring-1 ring-[#8B5CF6]/20 shadow-sm' 
+              : 'text-[#8B5CF6] bg-[#8B5CF6]/5 border-[#8B5CF6]/10 hover:bg-[#8B5CF6]/10'
+            }`}
+          >
+            <span className="material-symbols-outlined text-xs">auto_awesome</span>
+            AI SEO
           </button>
         </div>
 
@@ -151,7 +162,7 @@ const AuditForm = () => {
   );
 };
 
-// --- Home Components (Testimonial heavy version) ---
+// --- Home Components ---
 
 const Hero = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
   <section className="relative px-4 py-16 md:py-28 bg-white overflow-hidden">
@@ -316,12 +327,12 @@ const Services = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
             {[
               { title: 'B2B SEO | Leads From Search', desc: 'Turn search into a pipeline. High-intent B2B strategy for tech & startups.', link: 'b2b' },
               { title: 'Reddit Marketing', desc: 'Leads + AI Visibility in recommendation threads.', link: 'reddit' },
-              { title: 'Technical SEO', desc: 'Crawlability, Core Web Vitals, and indexing optimization.' },
-              { title: 'Global SEO', desc: 'Native English strategies for US and International markets.' }
+              { title: 'AI SEO Freelancer', desc: 'Rank on Google, ChatGPT and LLM powered search engines.', link: 'ai-seo' },
+              { title: 'Technical SEO', desc: 'Crawlability, Core Web Vitals, and indexing optimization.' }
             ].map((s, i) => (
               <div key={i} className={`flex gap-4 p-5 rounded-2xl border border-gray-100 transition-all ${s.link ? 'cursor-pointer hover:border-primary/40 bg-primary/5' : 'hover:border-primary/20'}`} onClick={() => s.link && onNavigate(s.link)}>
                 <div className="w-10 h-10 bg-primary/10 text-primary flex items-center justify-center rounded-lg flex-shrink-0">
-                  <span className="material-symbols-outlined">{s.link === 'reddit' ? 'forum' : s.link === 'b2b' ? 'hub' : 'auto_graph'}</span>
+                  <span className="material-symbols-outlined">{s.link === 'reddit' ? 'forum' : s.link === 'ai-seo' ? 'auto_awesome' : 'hub'}</span>
                 </div>
                 <div>
                   <h4 className="font-black text-navy text-sm mb-1">{s.title} {s.link && <span className="text-[9px] bg-primary text-white px-1.5 py-0.5 rounded ml-1 uppercase font-black">NEW</span>}</h4>
@@ -374,12 +385,8 @@ const FAQ = () => (
   </section>
 );
 
-// --- Home Page ---
+// --- Page Components ---
 
-/**
- * Added missing HomePage component which was referenced in the App root.
- * This aggregates the home-specific sections.
- */
 const HomePage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
   useEffect(() => {
     document.title = "SEO Company Israel | Senior Organic Growth Expert";
@@ -398,8 +405,6 @@ const HomePage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
     </div>
   );
 };
-
-// --- Service Pages (Improved Hero Sections) ---
 
 const B2BPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
   useEffect(() => {
@@ -426,7 +431,7 @@ const B2BPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
                 B2B SEO <span className="text-primary italic">Israel</span> <br/>
                 <span className="font-light">Leads From Search</span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-500 font-medium leading-relaxed max-lg mb-8">
+              <p className="text-lg md:text-xl text-gray-500 font-medium leading-relaxed max-w-lg mb-8">
                 Get found by buyers ready to convert on Google and AI search. We focus on pipeline, not just vanity metrics.
               </p>
               <button 
@@ -537,7 +542,7 @@ const RedditPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
                 Reddit <span className="text-[#FF4500]">Marketing</span> <br/>
                 <span className="font-light italic text-gray-400">Leads + AI Visibility</span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-500 font-medium leading-relaxed max-lg mb-8">
+              <p className="text-lg md:text-xl text-gray-500 font-medium leading-relaxed max-w-lg mb-8">
                 Get your brand mentioned in recommendation threads where buyers search—and where AI pulls its data.
               </p>
               <button 
@@ -623,6 +628,117 @@ const RedditPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
   );
 };
 
+const AIPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
+  useEffect(() => {
+    document.title = "AI SEO Freelancer | Rank on Google and ChatGPT | Zechariah Tokar";
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <div className="animate-in fade-in duration-700 bg-white">
+      <div className="bg-[#8B5CF6] text-white py-2 text-center text-[10px] font-black uppercase tracking-[0.2em]">
+        Leading-Edge AI Search Visibility
+      </div>
+
+      <section className="relative py-12 md:py-20 border-b border-gray-100 overflow-hidden bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <button onClick={() => onNavigate('home')} className="flex items-center gap-2 text-[10px] font-black uppercase text-gray-400 mb-8 hover:text-[#8B5CF6] transition-colors">
+            <span className="material-symbols-outlined text-sm">arrow_back</span>
+            Back to Home
+          </button>
+          
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1 className="text-4xl md:text-6xl font-black text-navy leading-[1.1] tracking-tighter mb-6">
+                AI SEO <span className="text-[#8B5CF6]">Freelancer</span> <br/>
+                <span className="font-light italic text-gray-400">Rank on Google & ChatGPT</span>
+              </h1>
+              <p className="text-lg md:text-xl text-gray-500 font-medium leading-relaxed max-w-lg mb-8">
+                Get your brand showing up in AI search results, not just traditional rankings.
+              </p>
+              <button 
+                onClick={() => document.getElementById('audit-form')?.scrollIntoView({ behavior: 'smooth' })}
+                className="bg-[#8B5CF6] text-white px-8 py-4 rounded-xl font-black uppercase tracking-widest text-[10px] hover:scale-105 transition-all shadow-lg shadow-[#8B5CF6]/20"
+              >
+                Get Your Free AI SEO Audit
+              </button>
+            </div>
+            
+            <div className="hidden lg:flex justify-end">
+              <div className="relative w-80 h-80 bg-navy rounded-3xl shadow-2xl p-8 flex flex-col justify-center text-white border border-white/5">
+                 <div className="absolute top-0 right-0 p-4 opacity-20">
+                    <span className="material-symbols-outlined text-6xl">auto_awesome</span>
+                 </div>
+                 <div className="relative z-10">
+                    <div className="flex items-center gap-2 mb-4">
+                        <div className="w-10 h-10 rounded-full bg-[#8B5CF6] flex items-center justify-center">
+                            <span className="material-symbols-outlined text-white text-lg">smart_toy</span>
+                        </div>
+                        <p className="text-[10px] font-black uppercase tracking-widest">AI Citation Engine</p>
+                    </div>
+                    <p className="text-sm font-medium leading-relaxed text-gray-300">"ChatGPT & Gemini now actively reference your site as a top authority in your niche."</p>
+                 </div>
+                 <div className="mt-10 pt-6 border-t border-white/10 text-center">
+                    <p className="text-3xl font-black text-[#8B5CF6]">+102%</p>
+                    <p className="text-[9px] font-bold uppercase tracking-[0.2em] opacity-60">Revenue Growth</p>
+                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 max-w-4xl mx-auto px-6">
+        <div className="mb-20">
+          <h2 className="text-2xl md:text-3xl font-black text-navy mb-8 tracking-tight leading-tight">
+            Google's AI Overviews are answering questions before anyone clicks. ChatGPT and Perplexity are becoming the new search engines.
+          </h2>
+          <div className="prose prose-lg text-gray-600 font-medium leading-relaxed max-w-none">
+            <p>
+              If your SEO strategy still focuses only on blue links, you're already behind. I'm Zechariah, an AI SEO freelancer based in Israel. I help businesses get found where buyers are actually searching now: Google, AI Overviews, ChatGPT, and LLM powered search engines.
+            </p>
+          </div>
+        </div>
+
+        <div className="mb-24">
+            <h2 className="text-3xl font-black text-navy mb-12 text-center uppercase tracking-widest text-sm">What AI SEO Actually Means</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+                {[
+                    { title: "Understandable Content", desc: "Structured, entity-rich pages that LLMs can parse and reference.", icon: "account_tree" },
+                    { title: "Reddit Visibility", desc: "AI models scrape forum data. I get your brand mentioned in the threads that matter.", icon: "forum" },
+                    { title: "Traditional Foundation", desc: "AI search layers on top of Google. I optimize for both systems simultaneously.", icon: "layers" }
+                ].map((item, i) => (
+                    <div key={i} className="p-8 rounded-[40px] border border-gray-100 bg-soft-gray flex flex-col h-full hover:border-[#8B5CF6]/30 transition-all">
+                        <span className="material-symbols-outlined text-[#8B5CF6] text-3xl mb-6">{item.icon}</span>
+                        <h3 className="font-black text-navy text-lg mb-4">{item.title}</h3>
+                        <p className="text-gray-500 text-sm leading-relaxed font-medium">{item.desc}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+
+        <div className="bg-[#8B5CF6] rounded-[48px] p-12 text-white relative overflow-hidden shadow-2xl mb-24">
+            <h3 className="text-2xl font-black mb-6">Why Hire a Freelancer?</h3>
+            <p className="text-white/80 text-lg mb-10 leading-relaxed font-medium">
+                Agencies hand you off to juniors. With me, you get direct access. Wharton educated, Semrush certified, and ready to build custom packages based on your actual revenue goals.
+            </p>
+            <div className="grid md:grid-cols-2 gap-8">
+                <div className="bg-black/10 p-6 rounded-2xl border border-white/10">
+                    <h4 className="font-black text-navy text-sm uppercase tracking-widest mb-2">Efficiency</h4>
+                    <p className="text-xs text-white/60 font-medium italic">Freelancer rates with consultant level strategy. No account managers. No runaround.</p>
+                </div>
+                <div className="bg-black/10 p-6 rounded-2xl border border-white/10">
+                    <h4 className="font-black text-navy text-sm uppercase tracking-widest mb-2">Proven</h4>
+                    <p className="text-xs text-white/60 font-medium italic">Applied to healthcare, B2B services, real estate, and tech startups.</p>
+                </div>
+            </div>
+        </div>
+      </section>
+      <AuditForm />
+    </div>
+  );
+};
+
 const Footer = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
   <footer className="bg-navy pt-20 pb-12 text-white border-t border-white/5">
     <div className="max-w-6xl mx-auto px-6">
@@ -645,6 +761,7 @@ const Footer = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
             <li><button onClick={() => onNavigate('home')} className="hover:text-primary transition-colors">Global Strategy</button></li>
             <li><button onClick={() => onNavigate('b2b')} className="hover:text-primary transition-colors">B2B SEO</button></li>
             <li><button onClick={() => onNavigate('reddit')} className="hover:text-[#FF4500] transition-colors">Reddit Marketing</button></li>
+            <li><button onClick={() => onNavigate('ai-seo')} className="hover:text-[#8B5CF6] transition-colors">AI SEO Freelancer</button></li>
           </ul>
         </div>
         
@@ -678,6 +795,8 @@ const App = () => {
           <HomePage onNavigate={setCurrentPage} />
         ) : currentPage === 'reddit' ? (
           <RedditPage onNavigate={setCurrentPage} />
+        ) : currentPage === 'ai-seo' ? (
+          <AIPage onNavigate={setCurrentPage} />
         ) : (
           <B2BPage onNavigate={setCurrentPage} />
         )}
