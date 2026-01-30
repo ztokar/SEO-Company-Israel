@@ -33,9 +33,9 @@ const Header = ({ onNavigate, currentPage }: { onNavigate: (page: string) => voi
           <button onClick={() => handleNavClick('services')} className="hover:text-primary transition-colors px-2">Services</button>
           
           <button 
-            onClick={() => onNavigate('b2b')} 
+            onClick={() => onNavigate('b2b-seo-israel')} 
             className={`px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1 border ${
-              currentPage === 'b2b' 
+              currentPage === 'b2b-seo-israel' 
               ? 'text-primary bg-primary/10 border-primary/30 ring-1 ring-primary/20 shadow-sm' 
               : 'text-primary bg-primary/5 border-primary/10 hover:bg-primary/10'
             }`}
@@ -45,9 +45,9 @@ const Header = ({ onNavigate, currentPage }: { onNavigate: (page: string) => voi
           </button>
 
           <button 
-            onClick={() => onNavigate('reddit')} 
+            onClick={() => onNavigate('reddit-marketing')} 
             className={`px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1 border ${
-              currentPage === 'reddit' 
+              currentPage === 'reddit-marketing' 
               ? 'text-white bg-[#FF4500] border-[#FF4500] shadow-md shadow-[#FF4500]/20' 
               : 'text-[#FF4500] bg-[#FF4500]/5 border-[#FF4500]/10 hover:bg-[#FF4500]/10'
             }`}
@@ -57,9 +57,9 @@ const Header = ({ onNavigate, currentPage }: { onNavigate: (page: string) => voi
           </button>
 
           <button 
-            onClick={() => onNavigate('ai-seo')} 
+            onClick={() => onNavigate('ai-seo-freelancer')} 
             className={`px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1 border ${
-              currentPage === 'ai-seo' 
+              currentPage === 'ai-seo-freelancer' 
               ? 'text-[#8B5CF6] bg-[#8B5CF6]/10 border-[#8B5CF6]/30 ring-1 ring-[#8B5CF6]/20 shadow-sm' 
               : 'text-[#8B5CF6] bg-[#8B5CF6]/5 border-[#8B5CF6]/10 hover:bg-[#8B5CF6]/10'
             }`}
@@ -200,7 +200,7 @@ const Hero = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
           Get Free SEO Audit
         </button>
         <button 
-          onClick={() => onNavigate('b2b')} 
+          onClick={() => onNavigate('b2b-seo-israel')} 
           className="h-14 px-10 border-2 border-gray-200 text-navy font-black rounded-xl hover:bg-gray-50 flex items-center justify-center gap-2 transition-all"
         >
           Explore B2B Pipeline Growth
@@ -325,14 +325,14 @@ const Services = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
           <h2 className="text-4xl font-black text-navy mb-6 tracking-tight">Professional SEO Services</h2>
           <div className="space-y-4">
             {[
-              { title: 'B2B SEO | Leads From Search', desc: 'Turn search into a pipeline. High-intent B2B strategy for tech & startups.', link: 'b2b' },
-              { title: 'Reddit Marketing', desc: 'Leads + AI Visibility in recommendation threads.', link: 'reddit' },
-              { title: 'AI SEO Freelancer', desc: 'Rank on Google, ChatGPT and LLM powered search engines.', link: 'ai-seo' },
+              { title: 'B2B SEO | Leads From Search', desc: 'Turn search into a pipeline. High-intent B2B strategy for tech & startups.', link: 'b2b-seo-israel' },
+              { title: 'Reddit Marketing', desc: 'Leads + AI Visibility in recommendation threads.', link: 'reddit-marketing' },
+              { title: 'AI SEO Freelancer', desc: 'Rank on Google, ChatGPT and LLM powered search engines.', link: 'ai-seo-freelancer' },
               { title: 'Technical SEO', desc: 'Crawlability, Core Web Vitals, and indexing optimization.' }
             ].map((s, i) => (
               <div key={i} className={`flex gap-4 p-5 rounded-2xl border border-gray-100 transition-all ${s.link ? 'cursor-pointer hover:border-primary/40 bg-primary/5' : 'hover:border-primary/20'}`} onClick={() => s.link && onNavigate(s.link)}>
                 <div className="w-10 h-10 bg-primary/10 text-primary flex items-center justify-center rounded-lg flex-shrink-0">
-                  <span className="material-symbols-outlined">{s.link === 'reddit' ? 'forum' : s.link === 'ai-seo' ? 'auto_awesome' : 'hub'}</span>
+                  <span className="material-symbols-outlined">{s.link === 'reddit-marketing' ? 'forum' : s.link === 'ai-seo-freelancer' ? 'auto_awesome' : 'hub'}</span>
                 </div>
                 <div>
                   <h4 className="font-black text-navy text-sm mb-1">{s.title} {s.link && <span className="text-[9px] bg-primary text-white px-1.5 py-0.5 rounded ml-1 uppercase font-black">NEW</span>}</h4>
@@ -345,7 +345,7 @@ const Services = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
         <div className="bg-navy rounded-[40px] p-8 md:p-12 text-white relative shadow-2xl overflow-hidden">
           <h3 className="text-2xl font-black mb-6 tracking-tight">The Senior Difference</h3>
           <p className="text-gray-400 font-medium mb-8 leading-relaxed">Direct access to senior expertise. Wharton MBA analysis applied to your organic growth.</p>
-          <button onClick={() => onNavigate('b2b')} className="text-primary text-xs font-black uppercase tracking-widest hover:text-white underline underline-offset-8 decoration-2 transition-all">Explore B2B Solutions →</button>
+          <button onClick={() => onNavigate('b2b-seo-israel')} className="text-primary text-xs font-black uppercase tracking-widest hover:text-white underline underline-offset-8 decoration-2 transition-all">Explore B2B Solutions →</button>
           <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-primary/10 rounded-full blur-xl"></div>
         </div>
       </div>
@@ -759,9 +759,9 @@ const Footer = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
           <h4 className="font-black uppercase text-[10px] tracking-[0.2em] text-primary mb-6">Explore</h4>
           <ul className="text-xs space-y-4 font-bold text-gray-500 uppercase tracking-widest">
             <li><button onClick={() => onNavigate('home')} className="hover:text-primary transition-colors">Global Strategy</button></li>
-            <li><button onClick={() => onNavigate('b2b')} className="hover:text-primary transition-colors">B2B SEO</button></li>
-            <li><button onClick={() => onNavigate('reddit')} className="hover:text-[#FF4500] transition-colors">Reddit Marketing</button></li>
-            <li><button onClick={() => onNavigate('ai-seo')} className="hover:text-[#8B5CF6] transition-colors">AI SEO Freelancer</button></li>
+            <li><button onClick={() => onNavigate('b2b-seo-israel')} className="hover:text-primary transition-colors">B2B SEO</button></li>
+            <li><button onClick={() => onNavigate('reddit-marketing')} className="hover:text-[#FF4500] transition-colors">Reddit Marketing</button></li>
+            <li><button onClick={() => onNavigate('ai-seo-freelancer')} className="hover:text-[#8B5CF6] transition-colors">AI SEO Freelancer</button></li>
           </ul>
         </div>
         
@@ -793,12 +793,14 @@ const App = () => {
       <main>
         {currentPage === 'home' ? (
           <HomePage onNavigate={setCurrentPage} />
-        ) : currentPage === 'reddit' ? (
+        ) : currentPage === 'reddit-marketing' ? (
           <RedditPage onNavigate={setCurrentPage} />
-        ) : currentPage === 'ai-seo' ? (
+        ) : currentPage === 'ai-seo-freelancer' ? (
           <AIPage onNavigate={setCurrentPage} />
-        ) : (
+        ) : currentPage === 'b2b-seo-israel' ? (
           <B2BPage onNavigate={setCurrentPage} />
+        ) : (
+          <HomePage onNavigate={setCurrentPage} />
         )}
       </main>
       <Footer onNavigate={setCurrentPage} />
