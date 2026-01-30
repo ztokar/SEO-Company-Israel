@@ -395,9 +395,17 @@ const FAQ = () => (
 
 // --- Page Components ---
 
+const updateMetaDescription = (description: string) => {
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute('content', description);
+  }
+};
+
 const HomePage = () => {
   useEffect(() => {
     document.title = "SEO Company Israel | Senior Organic Growth Expert";
+    updateMetaDescription("SEO Company Israel: Premium organic growth consultancy by Zechariah Tokar. Wharton-led strategies for US & international markets. Get your free SEO audit.");
     window.scrollTo(0, 0);
   }, []);
 
@@ -417,6 +425,7 @@ const HomePage = () => {
 const B2BPage = () => {
   useEffect(() => {
     document.title = "B2B SEO Israel | Leads From Search | Zechariah Tokar";
+    updateMetaDescription("B2B SEO services in Israel for tech startups and SaaS companies. Turn Google search into a lead pipeline. High-intent strategy by a Wharton MBA consultant.");
     window.scrollTo(0, 0);
   }, []);
 
@@ -528,6 +537,7 @@ const B2BPage = () => {
 const RedditPage = () => {
   useEffect(() => {
     document.title = "Reddit Marketing Service | Leads + AI Visibility | Zechariah Tokar";
+    updateMetaDescription("Reddit marketing services to get your brand mentioned in recommendation threads. Generate leads and improve AI visibility on ChatGPT and Perplexity.");
     window.scrollTo(0, 0);
   }, []);
 
@@ -639,6 +649,7 @@ const RedditPage = () => {
 const AIPage = () => {
   useEffect(() => {
     document.title = "AI SEO Freelancer | Rank on Google and ChatGPT | Zechariah Tokar";
+    updateMetaDescription("AI SEO freelancer helping businesses rank on Google, ChatGPT, and LLM-powered search engines. Get found in AI Overviews and conversational search results.");
     window.scrollTo(0, 0);
   }, []);
 
