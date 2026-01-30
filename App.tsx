@@ -19,8 +19,8 @@ const Header = ({ onNavigate, currentPage }: { onNavigate: (page: string) => voi
   return (
     <nav className="sticky top-0 z-50 glass-nav border-b border-gray-100">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <button onClick={() => onNavigate('home')} className="flex items-center gap-2 text-left">
-          <div className="bg-navy text-white p-1.5 rounded-lg">
+        <button onClick={() => onNavigate('home')} className="flex items-center gap-2 text-left group">
+          <div className="bg-navy text-white p-1.5 rounded-lg group-hover:bg-primary transition-colors">
             <span className="material-symbols-outlined text-xl">insights</span>
           </div>
           <div>
@@ -29,12 +29,21 @@ const Header = ({ onNavigate, currentPage }: { onNavigate: (page: string) => voi
           </div>
         </button>
         
-        <div className="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-widest text-navy">
-          <button onClick={() => handleNavClick('services')} className="hover:text-primary transition-colors">Services</button>
-          <button onClick={() => handleNavClick('testimonials')} className="hover:text-primary transition-colors">Results</button>
+        <div className="hidden md:flex items-center lg:gap-6 md:gap-3 text-xs font-bold uppercase tracking-widest text-navy">
+          <button onClick={() => handleNavClick('services')} className="hover:text-primary transition-colors px-2">Services</button>
+          <button onClick={() => handleNavClick('testimonials')} className="hover:text-primary transition-colors px-2">Results</button>
+          
+          <button 
+            onClick={() => onNavigate('b2b')} 
+            className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${currentPage === 'b2b' ? 'text-primary bg-primary/10 ring-1 ring-primary/20' : 'bg-navy/5 hover:bg-primary/5 hover:text-primary'}`}
+          >
+            <span className="material-symbols-outlined text-xs">hub</span>
+            B2B
+          </button>
+
           <button 
             onClick={() => onNavigate('reddit')} 
-            className={`px-3 py-1 rounded hover:opacity-80 transition-all flex items-center gap-1.5 ${currentPage === 'reddit' ? 'text-white bg-[#FF4500]' : 'bg-navy/5 text-navy'}`}
+            className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${currentPage === 'reddit' ? 'text-white bg-[#FF4500] shadow-md shadow-[#FF4500]/20' : 'bg-navy/5 hover:bg-[#FF4500]/10 hover:text-[#FF4500]'}`}
           >
             <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.966 0 1.75.784 1.75 1.75 0 .966-.784 1.75-1.75 1.75-.19 0-.375-.041-.539-.105-.114 1.619-1.142 3.06-2.674 4.14-.3.21-.62.39-.95.54a7.35 7.35 0 0 1-3.13.68c-.96 0-1.89-.15-2.73-.42a6.9 6.9 0 0 1-1.35-.61c-1.532-1.08-2.56-2.521-2.674-4.14-.164.064-.349.105-.539.105-.966 0-1.75-.784-1.75-1.75 0-.966.784-1.75 1.75-1.75.477 0 .899.182 1.207.491 1.154-.825 2.724-1.371 4.453-1.469l.754-3.528c.01-.05.03-.1.06-.14.04-.04.09-.07.15-.08l2.96-.61c.14-.04.28.05.32.19zm-3.834 10.155c-.5 0-.91.41-.91.91s.41.91.91.91.91-.41.91-.91-.41-.91-.91-.91zm-4.352 0c-.5 0-.91.41-.91.91s.41.91.91.91.91-.41.91-.91-.41-.91-.91-.91zm5.344 2.115c-.17.17-.44.17-.61 0-.6-.6-1.55-.89-2.56-.89-1.01 0-1.96.29-2.56.89-.17.17-.44.17-.61 0-.17-.17-.17-.44 0-.61.74-.74 1.86-1.1 3.17-1.1 1.31 0 2.43.36 3.17 1.1.17.17.17.44 0 .61z"/></svg>
             Reddit
@@ -42,7 +51,7 @@ const Header = ({ onNavigate, currentPage }: { onNavigate: (page: string) => voi
         </div>
 
         <div className="flex items-center gap-3 md:gap-4">
-          <a href="tel:0538484641" className="hidden lg:flex items-center gap-1 text-[11px] font-black text-navy uppercase tracking-widest hover:text-primary transition-colors">
+          <a href="tel:0538484641" className="hidden xl:flex items-center gap-1 text-[11px] font-black text-navy uppercase tracking-widest hover:text-primary transition-colors">
             <span className="material-symbols-outlined text-sm">call</span>
             053-848-4641
           </a>
@@ -51,7 +60,7 @@ const Header = ({ onNavigate, currentPage }: { onNavigate: (page: string) => voi
               if (currentPage !== 'home') onNavigate('home');
               setTimeout(() => document.getElementById('audit-form')?.scrollIntoView({ behavior: 'smooth' }), 100);
             }}
-            className="bg-navy text-white text-[10px] font-black uppercase tracking-widest px-4 py-2.5 rounded-full hover:bg-black transition-all active:scale-95"
+            className="bg-navy text-white text-[10px] font-black uppercase tracking-widest px-5 py-2.5 rounded-full hover:bg-black transition-all active:scale-95"
           >
             Free Audit
           </button>
@@ -134,7 +143,7 @@ const AuditForm = () => {
   );
 };
 
-// --- Home Page Components ---
+// --- Home Components (Testimonial heavy version) ---
 
 const Hero = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
   <section className="relative px-4 py-16 md:py-28 bg-white overflow-hidden">
@@ -143,8 +152,8 @@ const Hero = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
         <span className="w-8 h-[2px] bg-primary"></span>
         SEO Consultant in Israel
       </div>
-      <h1 className="text-4xl md:text-7xl font-black text-navy leading-[1.05] tracking-tight mb-8">
-        Dominate Search. <br className="hidden md:block"/> <span className="text-primary italic">Drive Revenue.</span>
+      <h1 className="text-5xl md:text-7xl font-black text-navy leading-[1.05] tracking-tight mb-8">
+        Dominate Search. <br className="hidden md:block"/> <span className="text-primary italic relative">Drive Revenue <span className="absolute -bottom-2 left-0 w-full h-1 bg-primary/20 rounded-full"></span></span>
       </h1>
       <p className="text-lg md:text-xl text-gray-500 font-medium max-w-2xl leading-relaxed mb-12">
         Strategic SEO for US and international businesses looking for high-intent traffic. Rank higher on Google without the bloated agency retainers.
@@ -166,21 +175,21 @@ const Hero = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
 
       <div className="flex flex-col sm:flex-row gap-4">
         <button 
-          onClick={() => document.getElementById('audit-form')?.scrollIntoView({ behavior: 'smooth' })}
+          onClick={() => document.getElementById('audit-form')?.scrollIntoView({ behavior: 'smooth' })} 
           className="h-14 px-10 bg-primary text-white font-black rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all active:scale-95"
         >
           Get Free SEO Audit
         </button>
         <button 
-          onClick={() => onNavigate('reddit')}
-          className="h-14 px-10 border-2 border-gray-200 text-navy font-black rounded-xl hover:bg-gray-50 transition-all flex items-center justify-center gap-2"
+          onClick={() => onNavigate('b2b')} 
+          className="h-14 px-10 border-2 border-gray-200 text-navy font-black rounded-xl hover:bg-gray-50 flex items-center justify-center gap-2 transition-all"
         >
-          <span className="material-symbols-outlined text-xl">forum</span>
-          Reddit Visibility
+          Explore B2B Pipeline Growth
         </button>
       </div>
     </div>
-    <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-[100px]"></div>
+    <div className="absolute top-1/2 right-0 -translate-y-1/2 w-1/3 h-2/3 bg-gradient-to-bl from-primary/5 to-transparent rounded-full blur-[120px] pointer-events-none"></div>
+    <div className="absolute -top-12 -left-12 w-64 h-64 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
   </section>
 );
 
@@ -194,8 +203,6 @@ const BrandLogos = () => (
         <span className="font-serif text-xl md:text-2xl tracking-widest font-light">ADORNA</span>
         <span className="font-cursive text-xl md:text-2xl font-bold text-pink-600">Pink Orchid</span>
         <span className="font-sans text-xs md:text-sm font-black uppercase">North Star Ranch</span>
-        <span className="font-serif text-xl md:text-2xl font-black">Z-STANDER</span>
-        <span className="font-sans text-base md:text-lg font-bold">STAND-UP NY</span>
       </div>
     </div>
   </section>
@@ -297,56 +304,30 @@ const Services = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
       <div className="grid md:grid-cols-2 gap-16 items-start">
         <div>
           <h2 className="text-4xl font-black text-navy mb-6 tracking-tight">Professional SEO Services</h2>
-          <p className="text-gray-500 font-medium mb-10 leading-relaxed">
-            I help businesses compete — and win — in search results through focused, data-driven strategies. No fluff, just technical excellence.
-          </p>
           <div className="space-y-4">
             {[
-              { title: 'Technical SEO', desc: 'Crawlability, Core Web Vitals, and indexing optimization.' },
-              { title: 'Keyword Mapping', desc: 'Intent-aligned research for high-conversion terms.' },
+              { title: 'B2B SEO | Leads From Search', desc: 'Turn search into a pipeline. High-intent B2B strategy for tech & startups.', link: 'b2b' },
               { title: 'Reddit Marketing', desc: 'Leads + AI Visibility in recommendation threads.', link: 'reddit' },
+              { title: 'Technical SEO', desc: 'Crawlability, Core Web Vitals, and indexing optimization.' },
               { title: 'Global SEO', desc: 'Native English strategies for US and International markets.' }
             ].map((s, i) => (
               <div key={i} className={`flex gap-4 p-5 rounded-2xl border border-gray-100 transition-all ${s.link ? 'cursor-pointer hover:border-primary/40 bg-primary/5' : 'hover:border-primary/20'}`} onClick={() => s.link && onNavigate(s.link)}>
                 <div className="w-10 h-10 bg-primary/10 text-primary flex items-center justify-center rounded-lg flex-shrink-0">
-                  <span className="material-symbols-outlined">{s.link ? 'forum' : 'auto_graph'}</span>
+                  <span className="material-symbols-outlined">{s.link === 'reddit' ? 'forum' : s.link === 'b2b' ? 'hub' : 'auto_graph'}</span>
                 </div>
                 <div>
-                  <h4 className="font-black text-navy text-sm mb-1">{s.title} {s.link && <span className="text-[9px] bg-primary text-white px-1.5 py-0.5 rounded ml-1 uppercase font-black">New</span>}</h4>
+                  <h4 className="font-black text-navy text-sm mb-1">{s.title} {s.link && <span className="text-[9px] bg-primary text-white px-1.5 py-0.5 rounded ml-1 uppercase font-black">NEW</span>}</h4>
                   <p className="text-xs text-gray-500 leading-normal font-medium">{s.desc}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <div className="bg-navy rounded-[40px] p-8 md:p-12 text-white relative overflow-hidden shadow-2xl">
+        <div className="bg-navy rounded-[40px] p-8 md:p-12 text-white relative shadow-2xl overflow-hidden">
           <h3 className="text-2xl font-black mb-6 tracking-tight">The Senior Difference</h3>
-          <p className="text-gray-400 font-medium mb-8 leading-relaxed">
-            Direct access to senior expertise. No junior account managers, no generic templates, and no hidden overhead.
-          </p>
-          <ul className="space-y-6">
-            <li className="flex items-start gap-4">
-              <span className="material-symbols-outlined text-primary">verified_user</span>
-              <div>
-                <p className="font-bold text-sm">Wharton-Level Strategy</p>
-                <p className="text-xs text-gray-500 mt-1">Analytical, business-first approach to SEO.</p>
-              </div>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="material-symbols-outlined text-primary">visibility</span>
-              <div>
-                <p className="font-bold text-sm">Absolute Transparency</p>
-                <p className="text-xs text-gray-500 mt-1">Real-time dashboards for results and activity.</p>
-              </div>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="material-symbols-outlined text-primary">support_agent</span>
-              <div>
-                <p className="font-bold text-sm">Direct Collaboration</p>
-                <p className="text-xs text-gray-500 mt-1">I work on your site. I take your calls.</p>
-              </div>
-            </li>
-          </ul>
+          <p className="text-gray-400 font-medium mb-8 leading-relaxed">Direct access to senior expertise. Wharton MBA analysis applied to your organic growth.</p>
+          <button onClick={() => onNavigate('b2b')} className="text-primary text-xs font-black uppercase tracking-widest hover:text-white underline underline-offset-8 decoration-2 transition-all">Explore B2B Solutions →</button>
+          <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-primary/10 rounded-full blur-xl"></div>
         </div>
       </div>
     </div>
@@ -354,21 +335,19 @@ const Services = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
 );
 
 const FAQItem = ({ q, a }: { q: string, a: string }) => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="border-b border-gray-100">
+    <div className="border-b border-gray-100 last:border-0">
       <button 
-        onClick={() => setOpen(!open)}
-        className="w-full py-6 flex items-center justify-between text-left hover:text-primary transition-colors focus:outline-none"
+        onClick={() => setIsOpen(!isOpen)} 
+        className="w-full py-6 flex items-center justify-between text-left group transition-all"
       >
-        <span className="font-black text-navy md:text-lg pr-4">{q}</span>
-        <span className={`material-symbols-outlined transform transition-transform ${open ? 'rotate-180' : ''}`}>expand_more</span>
+        <span className="text-sm md:text-base font-black text-navy uppercase tracking-tight group-hover:text-primary transition-colors">{q}</span>
+        <span className={`material-symbols-outlined text-primary transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>expand_more</span>
       </button>
-      {open && (
-        <div className="pb-8 text-sm text-gray-500 font-medium leading-relaxed animate-in slide-in-from-top-2 duration-300">
-          {a}
-        </div>
-      )}
+      <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+        <p className="pb-6 text-sm md:text-base text-gray-500 font-medium leading-relaxed">{a}</p>
+      </div>
     </div>
   );
 };
@@ -387,17 +366,20 @@ const FAQ = () => (
   </section>
 );
 
-// --- Page Templates ---
+// --- Home Page ---
 
+/**
+ * Added missing HomePage component which was referenced in the App root.
+ * This aggregates the home-specific sections.
+ */
 const HomePage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
   useEffect(() => {
-    document.title = "SEO Company Israel | Zechariah Tokar - Expert SEO Growth";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute('content', 'SEO Company Israel: Premium organic growth consultancy by Zechariah Tokar. Wharton-led strategies for US & international markets.');
+    document.title = "SEO Company Israel | Senior Organic Growth Expert";
+    window.scrollTo(0, 0);
   }, []);
 
   return (
-    <>
+    <div className="animate-in fade-in duration-700">
       <Hero onNavigate={onNavigate} />
       <BrandLogos />
       <Stats />
@@ -405,54 +387,66 @@ const HomePage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
       <Services onNavigate={onNavigate} />
       <FAQ />
       <AuditForm />
-    </>
+    </div>
   );
 };
 
-const RedditPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
+// --- Service Pages (Improved Hero Sections) ---
+
+const B2BPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
   useEffect(() => {
-    document.title = "Reddit Marketing Service | Leads + AI Visibility | Zechariah Tokar";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute('content', "Reddit marketing services that get your brand mentioned where buyers are searching—and where AI pulls its answers. Stop losing leads to competitors.");
+    document.title = "B2B SEO Israel | Leads From Search | Zechariah Tokar";
     window.scrollTo(0, 0);
   }, []);
 
   return (
     <div className="animate-in fade-in duration-700 bg-white">
-      {/* Dynamic Header Badge */}
-      <div className="bg-[#FF4500] text-white py-2 text-center text-[10px] font-black uppercase tracking-[0.2em]">
-        Specialized High-Intent Reddit Marketing
+      <div className="bg-primary text-white py-2 text-center text-[10px] font-black uppercase tracking-[0.2em]">
+        High-Performance B2B SEO Strategy
       </div>
 
-      <section className="relative py-24 border-b border-gray-100 overflow-hidden bg-white">
-        <div className="max-w-5xl mx-auto px-4 relative z-10">
-          <button onClick={() => onNavigate('home')} className="flex items-center gap-2 text-[10px] font-black uppercase text-gray-400 mb-8 hover:text-[#FF4500] transition-colors">
+      <section className="relative py-12 md:py-20 border-b border-gray-100 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4">
+          <button onClick={() => onNavigate('home')} className="flex items-center gap-2 text-[10px] font-black uppercase text-gray-400 mb-8 hover:text-primary transition-colors">
             <span className="material-symbols-outlined text-sm">arrow_back</span>
             Back to Home
           </button>
           
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-navy leading-[1.1] tracking-tighter mb-8">
-                Reddit <br className="hidden md:block"/>
-                <span className="text-[#FF4500]">Marketing</span> <br className="hidden md:block"/>
-                <span className="italic font-light">Leads + AI Visibility</span>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1 className="text-4xl md:text-6xl font-black text-navy leading-[1.1] tracking-tighter mb-6">
+                B2B SEO <span className="text-primary italic">Israel</span> <br/>
+                <span className="font-light">Leads From Search</span>
               </h1>
-              <p className="text-xl md:text-2xl text-gray-600 font-medium leading-relaxed max-w-xl">
-                Get your brand into the recommendation posts buyers actually click.
+              <p className="text-lg md:text-xl text-gray-500 font-medium leading-relaxed max-w-lg mb-8">
+                Get found by buyers ready to convert on Google and AI search. We focus on pipeline, not just vanity metrics.
               </p>
+              <button 
+                onClick={() => document.getElementById('audit-form')?.scrollIntoView({ behavior: 'smooth' })}
+                className="bg-primary text-white px-8 py-4 rounded-xl font-black uppercase tracking-widest text-[10px] hover:scale-105 transition-all shadow-lg shadow-primary/20"
+              >
+                Schedule Your Free SEO Audit
+              </button>
             </div>
             
-            <div className="lg:col-span-5 relative">
-              <div className="relative z-10 bg-white rounded-[40px] shadow-3xl border border-gray-100 overflow-hidden group">
-                 <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" className="w-full h-full object-cover grayscale transition-all group-hover:grayscale-0 duration-700" alt="Visibility" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent"></div>
-                 <div className="absolute bottom-8 left-8 right-8 text-white">
-                    <p className="text-4xl font-black tracking-tighter">+300%</p>
-                    <p className="text-[10px] font-bold uppercase tracking-widest opacity-80">Reddit-Driven Search Mentions</p>
+            <div className="hidden lg:flex justify-end">
+              <div className="relative w-80 h-80 bg-navy rounded-3xl shadow-2xl p-8 flex flex-col justify-center text-white border border-white/5">
+                 <div className="absolute top-0 right-0 p-4 opacity-20">
+                    <span className="material-symbols-outlined text-6xl">hub</span>
+                 </div>
+                 <div className="relative z-10">
+                    <p className="text-4xl font-black text-primary mb-2">+102%</p>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-80 leading-tight">YoY Organic Revenue Growth Verified</p>
+                 </div>
+                 <div className="mt-8 space-y-3">
+                    <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                        <div className="h-full w-4/5 bg-primary"></div>
+                    </div>
+                    <div className="h-1.5 w-2/3 bg-white/10 rounded-full overflow-hidden">
+                        <div className="h-full w-full bg-primary/60"></div>
+                    </div>
                  </div>
               </div>
-              <div className="absolute -top-12 -right-12 w-64 h-64 bg-[#FF4500]/5 rounded-full blur-[80px]"></div>
             </div>
           </div>
         </div>
@@ -460,84 +454,160 @@ const RedditPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
 
       <section className="py-24 max-w-4xl mx-auto px-6">
         <div className="mb-20">
-          <h2 className="text-3xl md:text-4xl font-black text-navy mb-8 tracking-tight leading-tight">
-            100s of buyers are actively looking for your services on Reddit right now. Is your brand showing up?
-          </h2>
-          <div className="prose prose-lg text-gray-600 font-medium leading-relaxed">
+          <h2 className="text-2xl md:text-3xl font-black text-navy mb-8 tracking-tight leading-tight">Your B2B website is sitting there. Traffic trickles in. Leads don't.</h2>
+          <div className="prose prose-lg text-gray-600 font-medium leading-relaxed max-w-none">
             <p>
-              Here's what I see every day: business owners watch their competitors get mentioned in recommendation threads while their brand sits invisible. Those same threads get scraped by ChatGPT, Perplexity, and Google's AI Overviews.
+              I've watched Israeli startups and tech companies pour money into content that ranks for keywords nobody searches. Or worse, keywords that bring the wrong people. Meanwhile, actual buyers are typing questions into Google and ChatGPT, and your competitors show up first.
             </p>
-            <p className="mt-6 border-l-4 border-[#FF4500] pl-6 italic">
-              "I track keywords across Reddit so my clients get found in these conversations. When someone asks 'who's the best [your service]?' — your name shows up."
+            <p className="mt-8">
+              I'm Zechariah, a B2B SEO consultant based in Beit Shemesh. I help Israeli companies targeting English-speaking markets turn search into a pipeline.
             </p>
           </div>
         </div>
 
-        {/* Pillar Section with Improved Readability */}
-        <div className="grid md:grid-cols-2 gap-8 mb-24">
-          <div className="bg-navy p-12 rounded-[48px] text-white shadow-2xl relative overflow-hidden flex flex-col justify-between">
-            <div className="relative z-10">
-              <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center mb-6 text-white">
-                <span className="material-symbols-outlined">trending_up</span>
-              </div>
-              <h3 className="text-2xl font-black mb-4 tracking-tight">Immediate Leads</h3>
-              <p className="text-gray-300 text-base leading-relaxed font-medium">
-                Real people click through from helpful, upvoted comments. Last month, a fractional CFO client got three discovery calls from a single Reddit thread.
-              </p>
+        <div className="mb-24">
+            <h2 className="text-3xl font-black text-navy mb-12 text-center uppercase tracking-widest text-sm">The Pipeline Methodology</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+                {[
+                    { title: "Searches That Matter", desc: "Decision makers searching 'fractional CFO' or 'AI agency' are ready to buy. We target intent, not just volume.", icon: "target" },
+                    { title: "AI Search Visibility", desc: "Google AI Overviews and ChatGPT pull answers from somewhere. I make sure your brand is in the mix.", icon: "auto_awesome" },
+                    { title: "Content That Converts", desc: "Not 2,000 word blog posts nobody reads. Focused pages that answer exactly what your buyers ask.", icon: "rate_review" }
+                ].map((item, i) => (
+                    <div key={i} className="p-8 rounded-[40px] border border-gray-100 bg-soft-gray flex flex-col h-full hover:border-primary/30 transition-all">
+                        <span className="material-symbols-outlined text-primary text-3xl mb-6">{item.icon}</span>
+                        <h3 className="font-black text-navy text-lg mb-4">{item.title}</h3>
+                        <p className="text-gray-500 text-sm leading-relaxed font-medium">{item.desc}</p>
+                    </div>
+                ))}
             </div>
-            <div className="mt-8 text-[10px] font-black uppercase tracking-[0.2em] text-[#FF4500]">Verified Conversion Metric</div>
-          </div>
-
-          <div className="bg-[#FF4500] p-12 rounded-[48px] text-white shadow-2xl relative overflow-hidden flex flex-col justify-between">
-            <div className="relative z-10">
-              <div className="w-12 h-12 bg-black/10 rounded-2xl flex items-center justify-center mb-6 text-white">
-                <span className="material-symbols-outlined">psychology</span>
-              </div>
-              <h3 className="text-2xl font-black mb-4 tracking-tight">Long-term AI Branding</h3>
-              <p className="text-white/90 text-base leading-relaxed font-medium">
-                Your brand gets woven into the data that ChatGPT, Claude, and Gemini use to answer buyer questions. You become the default recommendation.
-              </p>
-            </div>
-            <div className="mt-8 text-[10px] font-black uppercase tracking-[0.2em] text-navy">LLM Data Optimization</div>
-          </div>
         </div>
 
-        <div className="space-y-12">
-          <div className="grid md:grid-cols-12 gap-8 items-center">
-             <div className="md:col-span-1 hidden md:block">
-                <div className="flex flex-col items-center gap-2">
-                  <span className="material-symbols-outlined text-[#FF4500]">keyboard_arrow_up</span>
-                  <div className="w-px h-12 bg-gray-100"></div>
-                  <span className="material-symbols-outlined text-gray-300">keyboard_arrow_down</span>
+        <div className="bg-navy rounded-[48px] p-12 text-white relative overflow-hidden shadow-2xl mb-24">
+            <h3 className="text-2xl font-black mb-6">Who I Work With</h3>
+            <p className="text-gray-400 text-lg mb-10 leading-relaxed font-medium">
+                Israeli startups and B2B tech companies targeting the US, UK, and international markets. SaaS founders who are done bleeding money on Google Ads. 
+            </p>
+            <div className="grid md:grid-cols-2 gap-8">
+                <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
+                    <h4 className="font-black text-primary text-sm uppercase tracking-widest mb-2">Qualifications</h4>
+                    <p className="text-xs text-gray-400 font-medium italic">English speaking, Wharton educated, and Semrush certified in Digital PR, Content Marketing, and Local SEO.</p>
                 </div>
-             </div>
-             <div className="md:col-span-11">
-                <h3 className="text-2xl font-black text-navy mb-4">What I Do For Clients</h3>
-                <p className="text-gray-600 text-lg leading-relaxed font-medium">
-                  I use Reddit Pro to track keywords daily. When someone posts "looking for recommendations" in your niche, I'm there adding genuine value and positioning your brand. 
-                  <br/><br/>
-                  This isn't spam. It's strategic engagement that builds trust and captures buyers who've already raised their hand.
-                </p>
-             </div>
-          </div>
+                <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
+                    <h4 className="font-black text-primary text-sm uppercase tracking-widest mb-2">Experience</h4>
+                    <p className="text-xs text-gray-400 font-medium italic">Proven results across healthcare, fintech, real estate, and professional services.</p>
+                </div>
+            </div>
+        </div>
+      </section>
+      <AuditForm />
+    </div>
+  );
+};
+
+const RedditPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
+  useEffect(() => {
+    document.title = "Reddit Marketing Service | Leads + AI Visibility | Zechariah Tokar";
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <div className="animate-in fade-in duration-700 bg-white">
+      <div className="bg-[#FF4500] text-white py-2 text-center text-[10px] font-black uppercase tracking-[0.2em]">
+        Specialized High-Intent Reddit Marketing
+      </div>
+
+      <section className="relative py-12 md:py-20 border-b border-gray-100 overflow-hidden bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <button onClick={() => onNavigate('home')} className="flex items-center gap-2 text-[10px] font-black uppercase text-gray-400 mb-8 hover:text-[#FF4500] transition-colors">
+            <span className="material-symbols-outlined text-sm">arrow_back</span>
+            Back to Home
+          </button>
           
-          <div className="bg-soft-gray p-8 md:p-12 rounded-[40px] border border-gray-100 italic text-navy font-bold text-lg leading-relaxed">
-            "I've done this for therapy businesses, healthcare companies, B2B services, and AI agencies. Different industries, same result: brands that were invisible now get mentioned."
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1 className="text-4xl md:text-6xl font-black text-navy leading-[1.1] tracking-tighter mb-6">
+                Reddit <span className="text-[#FF4500]">Marketing</span> <br/>
+                <span className="font-light italic text-gray-400">Leads + AI Visibility</span>
+              </h1>
+              <p className="text-lg md:text-xl text-gray-500 font-medium leading-relaxed max-w-lg mb-8">
+                Get your brand mentioned in recommendation threads where buyers search—and where AI pulls its data.
+              </p>
+              <button 
+                onClick={() => document.getElementById('audit-form')?.scrollIntoView({ behavior: 'smooth' })}
+                className="bg-[#FF4500] text-white px-8 py-4 rounded-xl font-black uppercase tracking-widest text-[10px] hover:scale-105 transition-all shadow-lg shadow-[#FF4500]/20"
+              >
+                Get Your Free Reddit Audit
+              </button>
+            </div>
+            
+            <div className="hidden lg:flex justify-end">
+              <div className="relative w-80 h-auto bg-white border border-gray-100 rounded-3xl shadow-xl overflow-hidden p-6">
+                 <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                        <span className="material-symbols-outlined text-xs text-gray-400">person</span>
+                    </div>
+                    <div>
+                        <p className="text-[10px] font-black uppercase text-navy">u/MarketingLead</p>
+                        <p className="text-[9px] text-gray-400 uppercase font-bold tracking-widest">2h ago in r/startups</p>
+                    </div>
+                 </div>
+                 <p className="text-xs font-bold text-navy mb-4 leading-relaxed">"Who's the best SEO expert for international growth?"</p>
+                 <div className="bg-soft-gray p-4 rounded-xl border border-gray-100">
+                    <div className="flex items-center gap-2 mb-2">
+                        <div className="w-2 h-2 rounded-full bg-[#FF4500]"></div>
+                        <p className="text-[9px] font-black uppercase text-[#FF4500]">Recommended Result</p>
+                    </div>
+                    <p className="text-[10px] text-gray-600 font-medium leading-normal italic">"You should check out Zechariah Tokar. He's a Wharton MBA and did wonders for our pipeline growth..."</p>
+                 </div>
+                 <div className="mt-4 flex items-center gap-3">
+                    <span className="material-symbols-outlined text-sm text-[#FF4500]">keyboard_arrow_up</span>
+                    <span className="text-[10px] font-black text-navy">124 upvotes</span>
+                 </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-24 bg-navy text-white text-center">
-        <div className="max-w-2xl mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-black mb-8 tracking-tighter">Ready to Stop Missing These Leads?</h2>
-          <p className="text-gray-400 text-lg mb-12 font-medium">I'll show you exactly what buyers are searching for in your space and how we start capturing these leads.</p>
-          <button 
-            onClick={() => document.getElementById('audit-form')?.scrollIntoView({ behavior: 'smooth' })}
-            className="inline-flex items-center gap-3 bg-[#FF4500] text-white px-12 py-6 rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-105 transition-all shadow-xl shadow-[#FF4500]/20"
-          >
-            Schedule Your Free Reddit Audit
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </button>
+      <section className="py-24 max-w-4xl mx-auto px-6">
+        <div className="mb-20">
+          <h2 className="text-2xl md:text-3xl font-black text-navy mb-8 tracking-tight leading-tight">
+            100s of buyers are actively looking for your services on Reddit right now. Is your brand showing up?
+          </h2>
+          <div className="prose prose-lg text-gray-600 font-medium leading-relaxed">
+            <p>
+              Business owners watch their competitors get mentioned in recommendation threads while their brand sits invisible. Those same threads get scraped by ChatGPT, Perplexity, and Google's AI Overviews.
+            </p>
+            <p className="mt-6 border-l-4 border-[#FF4500] pl-6 italic">
+              "I track keywords across Reddit so my clients get found. When someone asks 'who's the best?' — your name shows up."
+            </p>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 mb-24">
+          <div className="bg-navy p-10 rounded-[48px] text-white shadow-2xl flex flex-col justify-between">
+            <div>
+              <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center mb-6 text-white">
+                <span className="material-symbols-outlined text-sm">trending_up</span>
+              </div>
+              <h3 className="text-xl font-black mb-4 tracking-tight">Immediate Leads</h3>
+              <p className="text-gray-400 text-sm leading-relaxed font-medium">
+                Real people click through from helpful, upvoted comments. Capturing high-intent buyers mid-conversation.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-[#FF4500] p-10 rounded-[48px] text-white shadow-2xl flex flex-col justify-between">
+            <div>
+              <div className="w-10 h-10 bg-black/10 rounded-xl flex items-center justify-center mb-6 text-white">
+                <span className="material-symbols-outlined text-sm">psychology</span>
+              </div>
+              <h3 className="text-xl font-black mb-4 tracking-tight">AI Branding</h3>
+              <p className="text-white/90 text-sm leading-relaxed font-medium">
+                Your brand gets woven into the training data LLMs use to recommend providers to their users.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
       <AuditForm />
@@ -564,9 +634,9 @@ const Footer = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
         <div>
           <h4 className="font-black uppercase text-[10px] tracking-[0.2em] text-primary mb-6">Explore</h4>
           <ul className="text-xs space-y-4 font-bold text-gray-500 uppercase tracking-widest">
-            <li><button onClick={() => onNavigate('home')} className="hover:text-primary">Services</button></li>
-            <li><button onClick={() => onNavigate('reddit')} className="hover:text-[#FF4500]">Reddit Marketing</button></li>
-            <li><button onClick={() => { onNavigate('home'); setTimeout(() => document.getElementById('testimonials')?.scrollIntoView({behavior:'smooth'}),100); }} className="hover:text-primary">Case Studies</button></li>
+            <li><button onClick={() => onNavigate('home')} className="hover:text-primary transition-colors">Global Strategy</button></li>
+            <li><button onClick={() => onNavigate('b2b')} className="hover:text-primary transition-colors">B2B SEO</button></li>
+            <li><button onClick={() => onNavigate('reddit')} className="hover:text-[#FF4500] transition-colors">Reddit Marketing</button></li>
           </ul>
         </div>
         
@@ -581,7 +651,7 @@ const Footer = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
       
       <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
         <p className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] text-center md:text-left">© 2024 SEO Company Israel. All rights reserved.</p>
-        <p className="text-[9px] font-bold text-gray-700 uppercase tracking-widest italic">Engineered by Zechariah Tokar.</p>
+        <p className="text-[9px] font-bold text-gray-700 uppercase tracking-widest italic text-center">Engineered for Results by Zechariah Tokar.</p>
       </div>
     </div>
   </footer>
@@ -596,7 +666,13 @@ const App = () => {
     <div className="min-h-screen bg-white">
       <Header currentPage={currentPage} onNavigate={setCurrentPage} />
       <main>
-        {currentPage === 'home' ? <HomePage onNavigate={setCurrentPage} /> : <RedditPage onNavigate={setCurrentPage} />}
+        {currentPage === 'home' ? (
+          <HomePage onNavigate={setCurrentPage} />
+        ) : currentPage === 'reddit' ? (
+          <RedditPage onNavigate={setCurrentPage} />
+        ) : (
+          <B2BPage onNavigate={setCurrentPage} />
+        )}
       </main>
       <Footer onNavigate={setCurrentPage} />
     </div>
