@@ -1,13 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate, useLocation, Link } from 'react-router-dom';
 import { generateSEOStrategy } from './geminiService';
 
 // --- Shared Components ---
 
-const Header = ({ onNavigate, currentPage }: { onNavigate: (page: string) => void, currentPage: string }) => {
+const Header = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentPage = location.pathname === '/' ? 'home' : location.pathname.slice(1);
+
   const handleNavClick = (sectionId: string) => {
     if (currentPage !== 'home') {
-      onNavigate('home');
+      navigate('/');
       setTimeout(() => {
         document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
@@ -19,7 +24,7 @@ const Header = ({ onNavigate, currentPage }: { onNavigate: (page: string) => voi
   return (
     <nav className="sticky top-0 z-50 glass-nav border-b border-gray-100">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <button onClick={() => onNavigate('home')} className="flex items-center gap-2 text-left group">
+        <Link to="/" className="flex items-center gap-2 text-left group">
           <div className="bg-navy text-white p-1.5 rounded-lg group-hover:bg-primary transition-colors">
             <span className="material-symbols-outlined text-xl">insights</span>
           </div>
@@ -27,46 +32,46 @@ const Header = ({ onNavigate, currentPage }: { onNavigate: (page: string) => voi
             <h1 className="text-sm font-black tracking-tight uppercase leading-tight">SEO Company</h1>
             <p className="text-[10px] font-bold text-primary tracking-widest uppercase leading-none mt-0.5">Israel</p>
           </div>
-        </button>
-        
+        </Link>
+
         <div className="hidden md:flex items-center lg:gap-4 md:gap-2 text-[10px] font-bold uppercase tracking-widest text-navy">
           <button onClick={() => handleNavClick('services')} className="hover:text-primary transition-colors px-2">Services</button>
-          
-          <button 
-            onClick={() => onNavigate('b2b-seo-israel')} 
+
+          <Link
+            to="/b2b-seo-israel"
             className={`px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1 border ${
-              currentPage === 'b2b-seo-israel' 
-              ? 'text-primary bg-primary/10 border-primary/30 ring-1 ring-primary/20 shadow-sm' 
+              currentPage === 'b2b-seo-israel'
+              ? 'text-primary bg-primary/10 border-primary/30 ring-1 ring-primary/20 shadow-sm'
               : 'text-primary bg-primary/5 border-primary/10 hover:bg-primary/10'
             }`}
           >
             <span className="material-symbols-outlined text-xs">hub</span>
             B2B
-          </button>
+          </Link>
 
-          <button 
-            onClick={() => onNavigate('reddit-marketing')} 
+          <Link
+            to="/reddit-marketing"
             className={`px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1 border ${
-              currentPage === 'reddit-marketing' 
-              ? 'text-white bg-[#FF4500] border-[#FF4500] shadow-md shadow-[#FF4500]/20' 
+              currentPage === 'reddit-marketing'
+              ? 'text-white bg-[#FF4500] border-[#FF4500] shadow-md shadow-[#FF4500]/20'
               : 'text-[#FF4500] bg-[#FF4500]/5 border-[#FF4500]/10 hover:bg-[#FF4500]/10'
             }`}
           >
             <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.966 0 1.75.784 1.75 1.75 0 .966-.784 1.75-1.75 1.75-.19 0-.375-.041-.539-.105-.114 1.619-1.142 3.06-2.674 4.14-.3.21-.62.39-.95.54a7.35 7.35 0 0 1-3.13.68c-.96 0-1.89-.15-2.73-.42a6.9 6.9 0 0 1-1.35-.61c-1.532-1.08-2.56-2.521-2.674-4.14-.164.064-.349.105-.539.105-.966 0-1.75-.784-1.75-1.75 0-.966.784-1.75 1.75-1.75.477 0 .899.182 1.207.491 1.154-.825 2.724-1.371 4.453-1.469l.754-3.528c.01-.05.03-.1.06-.14.04-.04.09-.07.15-.08l2.96-.61c.14-.04.28.05.32.19zm-3.834 10.155c-.5 0-.91.41-.91.91s.41.91.91.91.91-.41.91-.91-.41-.91-.91-.91zm-4.352 0c-.5 0-.91.41-.91.91s.41.91.91.91.91-.41.91-.91-.41-.91-.91-.91zm5.344 2.115c-.17.17-.44.17-.61 0-.6-.6-1.55-.89-2.56-.89-1.01 0-1.96.29-2.56.89-.17.17-.44.17-.61 0-.17-.17-.17-.44 0-.61.74-.74 1.86-1.1 3.17-1.1 1.31 0 2.43.36 3.17 1.1.17.17.17.44 0 .61z"/></svg>
             Reddit
-          </button>
+          </Link>
 
-          <button 
-            onClick={() => onNavigate('ai-seo-freelancer')} 
+          <Link
+            to="/ai-seo-freelancer"
             className={`px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1 border ${
-              currentPage === 'ai-seo-freelancer' 
-              ? 'text-[#8B5CF6] bg-[#8B5CF6]/10 border-[#8B5CF6]/30 ring-1 ring-[#8B5CF6]/20 shadow-sm' 
+              currentPage === 'ai-seo-freelancer'
+              ? 'text-[#8B5CF6] bg-[#8B5CF6]/10 border-[#8B5CF6]/30 ring-1 ring-[#8B5CF6]/20 shadow-sm'
               : 'text-[#8B5CF6] bg-[#8B5CF6]/5 border-[#8B5CF6]/10 hover:bg-[#8B5CF6]/10'
             }`}
           >
             <span className="material-symbols-outlined text-xs">auto_awesome</span>
             AI SEO
-          </button>
+          </Link>
         </div>
 
         <div className="flex items-center gap-3 md:gap-4">
@@ -74,9 +79,9 @@ const Header = ({ onNavigate, currentPage }: { onNavigate: (page: string) => voi
             <span className="material-symbols-outlined text-sm">call</span>
             053-848-4641
           </a>
-          <button 
+          <button
             onClick={() => {
-              if (currentPage !== 'home') onNavigate('home');
+              if (currentPage !== 'home') navigate('/');
               setTimeout(() => document.getElementById('audit-form')?.scrollIntoView({ behavior: 'smooth' }), 100);
             }}
             className="bg-navy text-white text-[10px] font-black uppercase tracking-widest px-5 py-2.5 rounded-full hover:bg-black transition-all active:scale-95"
@@ -164,7 +169,7 @@ const AuditForm = () => {
 
 // --- Home Components ---
 
-const Hero = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
+const Hero = () => (
   <section className="relative px-4 py-16 md:py-28 bg-white overflow-hidden">
     <div className="max-w-4xl mx-auto relative z-10">
       <div className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-6">
@@ -177,7 +182,7 @@ const Hero = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
       <p className="text-lg md:text-xl text-gray-500 font-medium max-w-2xl leading-relaxed mb-12">
         Strategic SEO for US and international businesses looking for high-intent traffic. Rank higher on Google without the bloated agency retainers.
       </p>
-      
+
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
         {[
           { label: 'Experience', val: '10+ Years' },
@@ -193,18 +198,18 @@ const Hero = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4">
-        <button 
-          onClick={() => document.getElementById('audit-form')?.scrollIntoView({ behavior: 'smooth' })} 
+        <button
+          onClick={() => document.getElementById('audit-form')?.scrollIntoView({ behavior: 'smooth' })}
           className="h-14 px-10 bg-primary text-white font-black rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all active:scale-95"
         >
           Get Free SEO Audit
         </button>
-        <button 
-          onClick={() => onNavigate('b2b-seo-israel')} 
+        <Link
+          to="/b2b-seo-israel"
           className="h-14 px-10 border-2 border-gray-200 text-navy font-black rounded-xl hover:bg-gray-50 flex items-center justify-center gap-2 transition-all"
         >
           Explore B2B Pipeline Growth
-        </button>
+        </Link>
       </div>
     </div>
     <div className="absolute top-1/2 right-0 -translate-y-1/2 w-1/3 h-2/3 bg-gradient-to-bl from-primary/5 to-transparent rounded-full blur-[120px] pointer-events-none"></div>
@@ -317,41 +322,44 @@ const Testimonials = () => {
   );
 };
 
-const Services = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
-  <section id="services" className="py-24 bg-white">
-    <div className="max-w-6xl mx-auto px-4">
-      <div className="grid md:grid-cols-2 gap-16 items-start">
-        <div>
-          <h2 className="text-4xl font-black text-navy mb-6 tracking-tight">Professional SEO Services</h2>
-          <div className="space-y-4">
-            {[
-              { title: 'B2B SEO | Leads From Search', desc: 'Turn search into a pipeline. High-intent B2B strategy for tech & startups.', link: 'b2b-seo-israel' },
-              { title: 'Reddit Marketing', desc: 'Leads + AI Visibility in recommendation threads.', link: 'reddit-marketing' },
-              { title: 'AI SEO Freelancer', desc: 'Rank on Google, ChatGPT and LLM powered search engines.', link: 'ai-seo-freelancer' },
-              { title: 'Technical SEO', desc: 'Crawlability, Core Web Vitals, and indexing optimization.' }
-            ].map((s, i) => (
-              <div key={i} className={`flex gap-4 p-5 rounded-2xl border border-gray-100 transition-all ${s.link ? 'cursor-pointer hover:border-primary/40 bg-primary/5' : 'hover:border-primary/20'}`} onClick={() => s.link && onNavigate(s.link)}>
-                <div className="w-10 h-10 bg-primary/10 text-primary flex items-center justify-center rounded-lg flex-shrink-0">
-                  <span className="material-symbols-outlined">{s.link === 'reddit-marketing' ? 'forum' : s.link === 'ai-seo-freelancer' ? 'auto_awesome' : 'hub'}</span>
+const Services = () => {
+  const navigate = useNavigate();
+  return (
+    <section id="services" className="py-24 bg-white">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="grid md:grid-cols-2 gap-16 items-start">
+          <div>
+            <h2 className="text-4xl font-black text-navy mb-6 tracking-tight">Professional SEO Services</h2>
+            <div className="space-y-4">
+              {[
+                { title: 'B2B SEO | Leads From Search', desc: 'Turn search into a pipeline. High-intent B2B strategy for tech & startups.', link: '/b2b-seo-israel' },
+                { title: 'Reddit Marketing', desc: 'Leads + AI Visibility in recommendation threads.', link: '/reddit-marketing' },
+                { title: 'AI SEO Freelancer', desc: 'Rank on Google, ChatGPT and LLM powered search engines.', link: '/ai-seo-freelancer' },
+                { title: 'Technical SEO', desc: 'Crawlability, Core Web Vitals, and indexing optimization.' }
+              ].map((s, i) => (
+                <div key={i} className={`flex gap-4 p-5 rounded-2xl border border-gray-100 transition-all ${s.link ? 'cursor-pointer hover:border-primary/40 bg-primary/5' : 'hover:border-primary/20'}`} onClick={() => s.link && navigate(s.link)}>
+                  <div className="w-10 h-10 bg-primary/10 text-primary flex items-center justify-center rounded-lg flex-shrink-0">
+                    <span className="material-symbols-outlined">{s.link === '/reddit-marketing' ? 'forum' : s.link === '/ai-seo-freelancer' ? 'auto_awesome' : 'hub'}</span>
+                  </div>
+                  <div>
+                    <h4 className="font-black text-navy text-sm mb-1">{s.title} {s.link && <span className="text-[9px] bg-primary text-white px-1.5 py-0.5 rounded ml-1 uppercase font-black">NEW</span>}</h4>
+                    <p className="text-xs text-gray-500 leading-normal font-medium">{s.desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-black text-navy text-sm mb-1">{s.title} {s.link && <span className="text-[9px] bg-primary text-white px-1.5 py-0.5 rounded ml-1 uppercase font-black">NEW</span>}</h4>
-                  <p className="text-xs text-gray-500 leading-normal font-medium">{s.desc}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+          <div className="bg-navy rounded-[40px] p-8 md:p-12 text-white relative shadow-2xl overflow-hidden">
+            <h3 className="text-2xl font-black mb-6 tracking-tight">The Senior Difference</h3>
+            <p className="text-gray-400 font-medium mb-8 leading-relaxed">Direct access to senior expertise. Wharton MBA analysis applied to your organic growth.</p>
+            <Link to="/b2b-seo-israel" className="text-primary text-xs font-black uppercase tracking-widest hover:text-white underline underline-offset-8 decoration-2 transition-all">Explore B2B Solutions →</Link>
+            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-primary/10 rounded-full blur-xl"></div>
           </div>
         </div>
-        <div className="bg-navy rounded-[40px] p-8 md:p-12 text-white relative shadow-2xl overflow-hidden">
-          <h3 className="text-2xl font-black mb-6 tracking-tight">The Senior Difference</h3>
-          <p className="text-gray-400 font-medium mb-8 leading-relaxed">Direct access to senior expertise. Wharton MBA analysis applied to your organic growth.</p>
-          <button onClick={() => onNavigate('b2b-seo-israel')} className="text-primary text-xs font-black uppercase tracking-widest hover:text-white underline underline-offset-8 decoration-2 transition-all">Explore B2B Solutions →</button>
-          <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-primary/10 rounded-full blur-xl"></div>
-        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 const FAQItem = ({ q, a }: { q: string, a: string }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -387,7 +395,7 @@ const FAQ = () => (
 
 // --- Page Components ---
 
-const HomePage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
+const HomePage = () => {
   useEffect(() => {
     document.title = "SEO Company Israel | Senior Organic Growth Expert";
     window.scrollTo(0, 0);
@@ -395,18 +403,18 @@ const HomePage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
 
   return (
     <div className="animate-in fade-in duration-700">
-      <Hero onNavigate={onNavigate} />
+      <Hero />
       <BrandLogos />
       <Stats />
       <Testimonials />
-      <Services onNavigate={onNavigate} />
+      <Services />
       <FAQ />
       <AuditForm />
     </div>
   );
 };
 
-const B2BPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
+const B2BPage = () => {
   useEffect(() => {
     document.title = "B2B SEO Israel | Leads From Search | Zechariah Tokar";
     window.scrollTo(0, 0);
@@ -420,10 +428,10 @@ const B2BPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
 
       <section className="relative py-12 md:py-20 border-b border-gray-100 overflow-hidden">
         <div className="max-w-6xl mx-auto px-4">
-          <button onClick={() => onNavigate('home')} className="flex items-center gap-2 text-[10px] font-black uppercase text-gray-400 mb-8 hover:text-primary transition-colors">
+          <Link to="/" className="flex items-center gap-2 text-[10px] font-black uppercase text-gray-400 mb-8 hover:text-primary transition-colors">
             <span className="material-symbols-outlined text-sm">arrow_back</span>
             Back to Home
-          </button>
+          </Link>
           
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -517,7 +525,7 @@ const B2BPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
   );
 };
 
-const RedditPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
+const RedditPage = () => {
   useEffect(() => {
     document.title = "Reddit Marketing Service | Leads + AI Visibility | Zechariah Tokar";
     window.scrollTo(0, 0);
@@ -531,10 +539,10 @@ const RedditPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
 
       <section className="relative py-12 md:py-20 border-b border-gray-100 overflow-hidden bg-white">
         <div className="max-w-6xl mx-auto px-4">
-          <button onClick={() => onNavigate('home')} className="flex items-center gap-2 text-[10px] font-black uppercase text-gray-400 mb-8 hover:text-[#FF4500] transition-colors">
+          <Link to="/" className="flex items-center gap-2 text-[10px] font-black uppercase text-gray-400 mb-8 hover:text-[#FF4500] transition-colors">
             <span className="material-symbols-outlined text-sm">arrow_back</span>
             Back to Home
-          </button>
+          </Link>
           
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -628,7 +636,7 @@ const RedditPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
   );
 };
 
-const AIPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
+const AIPage = () => {
   useEffect(() => {
     document.title = "AI SEO Freelancer | Rank on Google and ChatGPT | Zechariah Tokar";
     window.scrollTo(0, 0);
@@ -642,10 +650,10 @@ const AIPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
 
       <section className="relative py-12 md:py-20 border-b border-gray-100 overflow-hidden bg-white">
         <div className="max-w-6xl mx-auto px-4">
-          <button onClick={() => onNavigate('home')} className="flex items-center gap-2 text-[10px] font-black uppercase text-gray-400 mb-8 hover:text-[#8B5CF6] transition-colors">
+          <Link to="/" className="flex items-center gap-2 text-[10px] font-black uppercase text-gray-400 mb-8 hover:text-[#8B5CF6] transition-colors">
             <span className="material-symbols-outlined text-sm">arrow_back</span>
             Back to Home
-          </button>
+          </Link>
           
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -739,7 +747,7 @@ const AIPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
   );
 };
 
-const Footer = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
+const Footer = () => (
   <footer className="bg-navy pt-20 pb-12 text-white border-t border-white/5">
     <div className="max-w-6xl mx-auto px-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-16">
@@ -754,17 +762,17 @@ const Footer = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
             Expert organic growth strategies led by Zechariah Tokar. Direct senior consultation for businesses ready to dominate search results globally.
           </p>
         </div>
-        
+
         <div>
           <h4 className="font-black uppercase text-[10px] tracking-[0.2em] text-primary mb-6">Explore</h4>
           <ul className="text-xs space-y-4 font-bold text-gray-500 uppercase tracking-widest">
-            <li><button onClick={() => onNavigate('home')} className="hover:text-primary transition-colors">Global Strategy</button></li>
-            <li><button onClick={() => onNavigate('b2b-seo-israel')} className="hover:text-primary transition-colors">B2B SEO</button></li>
-            <li><button onClick={() => onNavigate('reddit-marketing')} className="hover:text-[#FF4500] transition-colors">Reddit Marketing</button></li>
-            <li><button onClick={() => onNavigate('ai-seo-freelancer')} className="hover:text-[#8B5CF6] transition-colors">AI SEO Freelancer</button></li>
+            <li><Link to="/" className="hover:text-primary transition-colors">Global Strategy</Link></li>
+            <li><Link to="/b2b-seo-israel" className="hover:text-primary transition-colors">B2B SEO</Link></li>
+            <li><Link to="/reddit-marketing" className="hover:text-[#FF4500] transition-colors">Reddit Marketing</Link></li>
+            <li><Link to="/ai-seo-freelancer" className="hover:text-[#8B5CF6] transition-colors">AI SEO Freelancer</Link></li>
           </ul>
         </div>
-        
+
         <div>
           <h4 className="font-black uppercase text-[10px] tracking-[0.2em] text-primary mb-6">Contact</h4>
           <div className="space-y-4">
@@ -773,7 +781,7 @@ const Footer = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
           </div>
         </div>
       </div>
-      
+
       <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
         <p className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] text-center md:text-left">© 2024 SEO Company Israel. All rights reserved.</p>
         <p className="text-[9px] font-bold text-gray-700 uppercase tracking-widest italic text-center">Engineered for Results by Zechariah Tokar.</p>
@@ -785,25 +793,19 @@ const Footer = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
 // --- App Root ---
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState('home');
-
   return (
     <div className="min-h-screen bg-white">
-      <Header currentPage={currentPage} onNavigate={setCurrentPage} />
+      <Header />
       <main>
-        {currentPage === 'home' ? (
-          <HomePage onNavigate={setCurrentPage} />
-        ) : currentPage === 'reddit-marketing' ? (
-          <RedditPage onNavigate={setCurrentPage} />
-        ) : currentPage === 'ai-seo-freelancer' ? (
-          <AIPage onNavigate={setCurrentPage} />
-        ) : currentPage === 'b2b-seo-israel' ? (
-          <B2BPage onNavigate={setCurrentPage} />
-        ) : (
-          <HomePage onNavigate={setCurrentPage} />
-        )}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/b2b-seo-israel" element={<B2BPage />} />
+          <Route path="/reddit-marketing" element={<RedditPage />} />
+          <Route path="/ai-seo-freelancer" element={<AIPage />} />
+          <Route path="*" element={<HomePage />} />
+        </Routes>
       </main>
-      <Footer onNavigate={setCurrentPage} />
+      <Footer />
     </div>
   );
 };
