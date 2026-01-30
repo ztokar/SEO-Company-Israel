@@ -35,7 +35,11 @@ const Header = ({ onNavigate, currentPage }: { onNavigate: (page: string) => voi
           
           <button 
             onClick={() => onNavigate('b2b')} 
-            className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${currentPage === 'b2b' ? 'text-primary bg-primary/10 ring-1 ring-primary/20' : 'bg-navy/5 hover:bg-primary/5 hover:text-primary'}`}
+            className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 border ${
+              currentPage === 'b2b' 
+              ? 'text-primary bg-primary/10 border-primary/30 ring-1 ring-primary/20 shadow-sm' 
+              : 'text-primary bg-primary/5 border-primary/10 hover:bg-primary/10'
+            }`}
           >
             <span className="material-symbols-outlined text-xs">hub</span>
             B2B
@@ -43,7 +47,11 @@ const Header = ({ onNavigate, currentPage }: { onNavigate: (page: string) => voi
 
           <button 
             onClick={() => onNavigate('reddit')} 
-            className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${currentPage === 'reddit' ? 'text-white bg-[#FF4500] shadow-md shadow-[#FF4500]/20' : 'bg-navy/5 hover:bg-[#FF4500]/10 hover:text-[#FF4500]'}`}
+            className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 border ${
+              currentPage === 'reddit' 
+              ? 'text-white bg-[#FF4500] border-[#FF4500] shadow-md shadow-[#FF4500]/20' 
+              : 'text-[#FF4500] bg-[#FF4500]/5 border-[#FF4500]/10 hover:bg-[#FF4500]/10'
+            }`}
           >
             <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.966 0 1.75.784 1.75 1.75 0 .966-.784 1.75-1.75 1.75-.19 0-.375-.041-.539-.105-.114 1.619-1.142 3.06-2.674 4.14-.3.21-.62.39-.95.54a7.35 7.35 0 0 1-3.13.68c-.96 0-1.89-.15-2.73-.42a6.9 6.9 0 0 1-1.35-.61c-1.532-1.08-2.56-2.521-2.674-4.14-.164.064-.349.105-.539.105-.966 0-1.75-.784-1.75-1.75 0-.966.784-1.75 1.75-1.75.477 0 .899.182 1.207.491 1.154-.825 2.724-1.371 4.453-1.469l.754-3.528c.01-.05.03-.1.06-.14.04-.04.09-.07.15-.08l2.96-.61c.14-.04.28.05.32.19zm-3.834 10.155c-.5 0-.91.41-.91.91s.41.91.91.91.91-.41.91-.91-.41-.91-.91-.91zm-4.352 0c-.5 0-.91.41-.91.91s.41.91.91.91.91-.41.91-.91-.41-.91-.91-.91zm5.344 2.115c-.17.17-.44.17-.61 0-.6-.6-1.55-.89-2.56-.89-1.01 0-1.96.29-2.56.89-.17.17-.44.17-.61 0-.17-.17-.17-.44 0-.61.74-.74 1.86-1.1 3.17-1.1 1.31 0 2.43.36 3.17 1.1.17.17.17.44 0 .61z"/></svg>
             Reddit
@@ -418,7 +426,7 @@ const B2BPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
                 B2B SEO <span className="text-primary italic">Israel</span> <br/>
                 <span className="font-light">Leads From Search</span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-500 font-medium leading-relaxed max-w-lg mb-8">
+              <p className="text-lg md:text-xl text-gray-500 font-medium leading-relaxed max-lg mb-8">
                 Get found by buyers ready to convert on Google and AI search. We focus on pipeline, not just vanity metrics.
               </p>
               <button 
@@ -529,7 +537,7 @@ const RedditPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
                 Reddit <span className="text-[#FF4500]">Marketing</span> <br/>
                 <span className="font-light italic text-gray-400">Leads + AI Visibility</span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-500 font-medium leading-relaxed max-w-lg mb-8">
+              <p className="text-lg md:text-xl text-gray-500 font-medium leading-relaxed max-lg mb-8">
                 Get your brand mentioned in recommendation threads where buyers search—and where AI pulls its data.
               </p>
               <button 
