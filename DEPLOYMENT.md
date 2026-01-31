@@ -17,7 +17,7 @@ gcloud run deploy seocompanyisrael \
   --platform managed \
   --region us-central1 \
   --allow-unauthenticated \
-  --set-env-vars GEMINI_API_KEY=AIzaSyA3-yVoP4KV62wvazqMuIEoLz8_qqDS8aE \
+  --set-env-vars GEMINI_API_KEY=YOUR_API_KEY_HERE \
   --port 8080
 ```
 
@@ -30,7 +30,7 @@ gcloud run deploy seocompanyisrael \
 5. Under "Environment Variables", click "Add Variable"
 6. Set:
    - **Name**: `GEMINI_API_KEY`
-   - **Value**: `AIzaSyA3-yVoP4KV62wvazqMuIEoLz8_qqDS8aE`
+   - **Value**: `YOUR_API_KEY_HERE`
 7. Click "Deploy"
 
 ## Step 2: Build and Deploy
@@ -47,7 +47,7 @@ gcloud run deploy seocompanyisrael \
   --platform managed \
   --region us-central1 \
   --allow-unauthenticated \
-  --set-env-vars GEMINI_API_KEY=AIzaSyA3-yVoP4KV62wvazqMuIEoLz8_qqDS8aE \
+  --set-env-vars GEMINI_API_KEY=YOUR_API_KEY_HERE \
   --port 8080
 ```
 
@@ -59,7 +59,7 @@ gcloud run deploy seocompanyisrael \
   --platform managed \
   --region us-central1 \
   --allow-unauthenticated \
-  --set-env-vars GEMINI_API_KEY=AIzaSyA3-yVoP4KV62wvazqMuIEoLz8_qqDS8aE \
+  --set-env-vars GEMINI_API_KEY=YOUR_API_KEY_HERE \
   --port 8080
 ```
 
@@ -134,7 +134,7 @@ For better security, store the API key in Secret Manager:
 
 ```bash
 # Create secret
-echo -n "AIzaSyA3-yVoP4KV62wvazqMuIEoLz8_qqDS8aE" | \
+echo -n "YOUR_API_KEY_HERE" | \
   gcloud secrets create gemini-api-key --data-file=-
 
 # Deploy with secret
