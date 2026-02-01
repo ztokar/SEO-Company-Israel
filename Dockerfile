@@ -1,4 +1,4 @@
-# Build stage
+# Build stage - nginx SPA configuration
 FROM node:20-alpine AS builder
 
 WORKDIR /app
