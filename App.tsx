@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
-import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { generateSEOStrategy } from './geminiService';
 
 // --- Shared Components ---
@@ -100,10 +99,9 @@ const Header = () => {
   );
 };
 
-const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '6LdUym4sAAAAAH7-MgGMCadlrdecy7COFvsMgBxx';
+const LEAD_FORM_ENDPOINT = 'https://formsubmit.co/ajax/642d84894ebda72a0c18d94f746f228b';
 
 const AuditFormContent = () => {
-  const { executeRecaptcha } = useGoogleReCaptcha();
   const [domain, setDomain] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -124,29 +122,24 @@ const AuditFormContent = () => {
       formData.append('domain', domain);
       formData.append('website', domain);
       formData.append('email', email);
-      formData.append('_subject', `New Lead: ${domain}`);
+      formData.append('_subject', `SEO Company Israel lead: ${domain}`);
+      formData.append('_template', 'table');
+      formData.append('_captcha', 'false');
+      formData.append('_honey', '');
 
-      if (executeRecaptcha) {
-        const token = await executeRecaptcha('contact_form');
-        if (token) {
-          formData.append('g-recaptcha-response', token);
-        }
-      }
-
-      const formspreeResponse = await fetch('https://formspree.io/f/mpwvyzbr', {
+      const leadResponse = await fetch(LEAD_FORM_ENDPOINT, {
         method: 'POST',
         body: formData,
         headers: { 'Accept': 'application/json' }
       });
 
-      if (!formspreeResponse.ok) {
+      if (!leadResponse.ok) {
         let message = 'We could not submit your request. Please try again or email Zechariah directly.';
 
         try {
-          const responseData = await formspreeResponse.json();
-          const firstError = responseData?.errors?.[0]?.message;
-          if (firstError) {
-            message = firstError;
+          const responseData = await leadResponse.json();
+          if (responseData?.message) {
+            message = responseData.message;
           }
         } catch {
           // Keep the fallback message if the response body is not JSON.
@@ -157,9 +150,13 @@ const AuditFormContent = () => {
 
       setFormStatus('success');
 
-      const result = await generateSEOStrategy(domain);
-      if (result) {
-        setStrategy(result);
+      try {
+        const result = await generateSEOStrategy(domain);
+        if (result) {
+          setStrategy(result);
+        }
+      } catch {
+        // Lead capture already succeeded, so do not downgrade the submission state.
       }
     } catch (err) {
       setFormStatus('error');
@@ -217,11 +214,7 @@ const AuditFormContent = () => {
   );
 };
 
-const AuditForm = () => (
-  <GoogleReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
-    <AuditFormContent />
-  </GoogleReCaptchaProvider>
-);
+const AuditForm = () => <AuditFormContent />;
 
 // --- Home Components ---
 
