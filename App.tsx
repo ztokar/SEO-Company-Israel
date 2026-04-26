@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { generateSEOStrategy } from './geminiService';
 
 // --- Shared Components ---
@@ -99,34 +100,70 @@ const Header = () => {
   );
 };
 
-const AuditForm = () => {
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '6LdUym4sAAAAAH7-MgGMCadlrdecy7COFvsMgBxx';
+
+const AuditFormContent = () => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [domain, setDomain] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [strategy, setStrategy] = useState<string | null>(null);
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!domain || !email) return;
     setLoading(true);
     setFormStatus('submitting');
+    setErrorMessage(null);
+    setStrategy(null);
+
     try {
       const formData = new FormData();
       formData.append('domain', domain);
+      formData.append('website', domain);
       formData.append('email', email);
       formData.append('_subject', `New Lead: ${domain}`);
+
+      if (executeRecaptcha) {
+        const token = await executeRecaptcha('contact_form');
+        if (token) {
+          formData.append('g-recaptcha-response', token);
+        }
+      }
+
       const formspreeResponse = await fetch('https://formspree.io/f/mpwvyzbr', {
         method: 'POST',
         body: formData,
         headers: { 'Accept': 'application/json' }
       });
-      if (formspreeResponse.ok) setFormStatus('success');
-      else throw new Error('Failed');
+
+      if (!formspreeResponse.ok) {
+        let message = 'We could not submit your request. Please try again or email Zechariah directly.';
+
+        try {
+          const responseData = await formspreeResponse.json();
+          const firstError = responseData?.errors?.[0]?.message;
+          if (firstError) {
+            message = firstError;
+          }
+        } catch {
+          // Keep the fallback message if the response body is not JSON.
+        }
+
+        throw new Error(message);
+      }
+
+      setFormStatus('success');
+
       const result = await generateSEOStrategy(domain);
-      setStrategy(result);
+      if (result) {
+        setStrategy(result);
+      }
     } catch (err) {
       setFormStatus('error');
+      setErrorMessage(err instanceof Error ? err.message : 'We could not submit your request. Please try again or email Zechariah directly.');
     } finally {
       setLoading(false);
     }
@@ -152,11 +189,19 @@ const AuditForm = () => {
                 <button type="submit" disabled={loading} className="w-full bg-primary h-14 rounded-xl font-black uppercase tracking-widest text-[11px] disabled:opacity-50">
                   {loading ? 'Sending Request...' : 'Get My Free Audit'}
                 </button>
+                {formStatus === 'error' && (
+                  <p className="text-sm text-red-300 font-medium leading-relaxed">
+                    {errorMessage}
+                  </p>
+                )}
               </form>
             ) : (
               <div className="animate-in fade-in zoom-in duration-500 text-center py-8">
                 <span className="material-symbols-outlined text-4xl text-primary mb-4">check_circle</span>
                 <h3 className="text-2xl font-black mb-3">Request Received.</h3>
+                <p className="text-sm text-gray-400 font-medium leading-relaxed">
+                  Your details are through. I&apos;ll review the site and follow up directly.
+                </p>
                 {strategy && (
                    <div className="text-left mt-6 bg-white/5 p-6 rounded-xl border-l-4 border-primary italic text-sm text-gray-300 whitespace-pre-line font-medium">
                      {strategy}
@@ -171,6 +216,12 @@ const AuditForm = () => {
     </section>
   );
 };
+
+const AuditForm = () => (
+  <GoogleReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
+    <AuditFormContent />
+  </GoogleReCaptchaProvider>
+);
 
 // --- Home Components ---
 
